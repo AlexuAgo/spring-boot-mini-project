@@ -1,0 +1,33 @@
+### GET request to say hello
+
+GET http://localhost:8080
+
+### GET request to show the list of engineers
+
+GET http://localhost:8080/api/v1/software_engineers
+###
+
+POST http://localhost:8080/api/v1/software_engineers
+Content-Type: application/json
+
+{
+  "name": "George",
+  "techStack": "frontend, html, css"
+}
+
+###
+
+GET http://localhost:8080/api/v1/software_engineers/2
+
+###
+PUT http://localhost:8080/api/v1/software_engineers/4
+Content-Type: application/json
+
+{
+  "name": "Johny",
+  "techStack": "backend, spring"
+}
+
+###
+DELETE http://localhost:8080/api/v1/software_engineers/3
+
