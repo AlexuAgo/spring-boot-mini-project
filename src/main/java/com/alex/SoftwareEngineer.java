@@ -14,7 +14,9 @@ public class SoftwareEngineer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "Name can't be empty")
     private String name;
+    @NotBlank(message = "Tech stack can't be empty")
     private String techStack;
 
     public SoftwareEngineer() {

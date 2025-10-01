@@ -1,5 +1,6 @@
 package com.alex;
 
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class SoftwareEngineerController {
     }
 
     @PostMapping
-    public void addNewSoftwareEngineer(@RequestBody SoftwareEngineer softwareEngineer) {
+    public void addNewSoftwareEngineer(@Valid @RequestBody SoftwareEngineer softwareEngineer) {
         softwareEngineerService.insertSoftwareEngineer(softwareEngineer);
     }
 
@@ -33,7 +34,7 @@ public class SoftwareEngineerController {
         return softwareEngineerService.getSoftwareEngineerById(id);
     }
     @PutMapping("{id}")
-    public SoftwareEngineer putEngineerById(@PathVariable Integer id, @RequestBody SoftwareEngineer softwareEngineer) {
+    public SoftwareEngineer putEngineerById(@PathVariable Integer id,@Valid @RequestBody SoftwareEngineer softwareEngineer) {
 
         return softwareEngineerService.putSoftwareEngineerById(id, softwareEngineer);
     }
