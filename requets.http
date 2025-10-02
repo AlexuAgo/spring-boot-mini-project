@@ -1,25 +1,22 @@
 ### GET request to say hello
-
 GET http://localhost:8080
 
 ### GET request to show the list of engineers
-
 GET http://localhost:8080/api/v1/software_engineers
-###
 
+### POST request to add engineers
 POST http://localhost:8080/api/v1/software_engineers
 Content-Type: application/json
 
 {
-  "name": "",
-  "techStack": "frontend, html, css"
+  "name": "Alex",
+  "techStack": "backend, java, spring"
 }
 
-###
-
+### GET a specific engineer by id
 GET http://localhost:8080/api/v1/software_engineers/2
 
-###
+### Update an engineer by id
 PUT http://localhost:8080/api/v1/software_engineers/4
 Content-Type: application/json
 
@@ -28,6 +25,8 @@ Content-Type: application/json
   "techStack": "backend, spring"
 }
 
-###
+### Delete an engineer by id
 DELETE http://localhost:8080/api/v1/software_engineers/3
+
+
 

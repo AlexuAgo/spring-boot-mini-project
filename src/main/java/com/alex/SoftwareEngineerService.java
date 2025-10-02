@@ -1,6 +1,7 @@
 package com.alex;
 
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
@@ -16,13 +17,23 @@ public class SoftwareEngineerService {
         this.handlerExceptionResolver = handlerExceptionResolver;
     }
 
-    /*Get all software engineers */
+    /* Get all software engineers
     public List<SoftwareEngineer> getAllSoftwareEngineers() {
         return softwareEngineerRepository.findAll();
+    }*/
+
+    /*Get all software engineers but through the dto */
+    public List<SoftwareEngineerDTO> getAllSoftwareEngineersDTO() {
+        return softwareEngineerRepository.findAll().stream().map(this::mapToDTO).toList();
     }
+
     /*Insert one software engineer*/
-    public void insertSoftwareEngineer(SoftwareEngineer softwareEngineer) {
-        softwareEngineerRepository.save(softwareEngineer);
+    public void insertSoftwareEngineer(@Valid SoftwareEngineerDTO dto) {
+        SoftwareEngineer engineer = new SoftwareEngineer();
+        engineer.setName(dto.getName());
+        engineer.setTechStack(dto.getTechStack());
+
+        softwareEngineerRepository.save(engineer);
     }
 
     /*Delete one software engineer */
@@ -33,15 +44,17 @@ public class SoftwareEngineerService {
     }
 
     /*Update a software engineer */
-    public SoftwareEngineer putSoftwareEngineerById(Integer id, SoftwareEngineer data) {
+    public SoftwareEngineerDTO updateEngineer(Integer id, @Valid SoftwareEngineerDTO dto) {
 
-        SoftwareEngineer existingEngineer = softwareEngineerRepository.findById(id)
+        SoftwareEngineer engineer = softwareEngineerRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Engineer" + id + " not found"));
 
-        existingEngineer.setName(data.getName());
-        existingEngineer.setTechStack(data.getTechStack());
+        engineer.setName(dto.getName());
+        engineer.setTechStack(dto.getTechStack());
 
-        return softwareEngineerRepository.save(existingEngineer);
+        softwareEngineerRepository.save(engineer);
+
+        return mapToDTO(engineer);
 
 
     }
@@ -55,4 +68,13 @@ public class SoftwareEngineerService {
 
 
     }
+
+    public SoftwareEngineerDTO mapToDTO(SoftwareEngineer engineer) {
+        return new SoftwareEngineerDTO(
+                engineer.getId(),
+                engineer.getName(),
+                engineer.getTechStack()
+        );
+    }
+
 }

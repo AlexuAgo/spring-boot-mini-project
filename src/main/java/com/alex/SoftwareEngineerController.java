@@ -1,7 +1,6 @@
 package com.alex;
 
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,25 +17,30 @@ public class SoftwareEngineerController {
         this.softwareEngineerService = softwareEngineerService;
     }
 
+    //get all through dto
     @GetMapping
-    public List<SoftwareEngineer> getEngineers() {
-        return softwareEngineerService.getAllSoftwareEngineers();
+    public List<SoftwareEngineerDTO> getAllSoftwareEngineersDTO() {
+        return softwareEngineerService.getAllSoftwareEngineersDTO();
     }
 
+
     @PostMapping
-    public void addNewSoftwareEngineer(@Valid @RequestBody SoftwareEngineer softwareEngineer) {
+    public void addNewSoftwareEngineer(@Valid @RequestBody SoftwareEngineerDTO softwareEngineer) {
         softwareEngineerService.insertSoftwareEngineer(softwareEngineer);
     }
 
+    /* get all
     @GetMapping("{id}")
     public SoftwareEngineer getEngineerById(@PathVariable Integer id) {
 
         return softwareEngineerService.getSoftwareEngineerById(id);
     }
+*/
+    //update
     @PutMapping("{id}")
-    public SoftwareEngineer putEngineerById(@PathVariable Integer id,@Valid @RequestBody SoftwareEngineer softwareEngineer) {
+    public SoftwareEngineerDTO putEngineerById(@PathVariable Integer id,@Valid @RequestBody SoftwareEngineerDTO dto) {
 
-        return softwareEngineerService.putSoftwareEngineerById(id, softwareEngineer);
+        return softwareEngineerService.updateEngineer(id, dto);
     }
 
     @DeleteMapping("{id}")
