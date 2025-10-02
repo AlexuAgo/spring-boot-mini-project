@@ -9,8 +9,8 @@ POST http://localhost:8080/api/v1/software_engineers
 Content-Type: application/json
 
 {
-  "name": "Alex",
-  "techStack": "backend, java, spring"
+  "name": "John",
+  "techStack": "sql, mongo "
 }
 
 ### GET a specific engineer by id
@@ -26,7 +26,10 @@ Content-Type: application/json
 }
 
 ### Delete an engineer by id
-DELETE http://localhost:8080/api/v1/software_engineers/3
+DELETE http://localhost:8080/api/v1/software_engineers/2
+
+### Search an engineer by techStack
+GET http://localhost:8080/api/v1/software_engineers/search?techStack=java
 
 
 

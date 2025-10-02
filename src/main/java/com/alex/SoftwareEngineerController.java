@@ -42,11 +42,17 @@ public class SoftwareEngineerController {
 
         return softwareEngineerService.updateEngineer(id, dto);
     }
-
+    //delete
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteSoftwareEngineerById(@PathVariable Integer id) {
         softwareEngineerService.deleteSoftwareEngineerById(id);
         return ResponseEntity.noContent().build(); // HTTP 204
+    }
+
+    //get by techstack
+    @GetMapping("/search")
+    public List<SoftwareEngineerDTO> getEngineersByTechStack(@RequestParam(value = "techStack") String techStack) {
+        return  softwareEngineerService.getEngineersByTechStack(techStack);
     }
 
 }

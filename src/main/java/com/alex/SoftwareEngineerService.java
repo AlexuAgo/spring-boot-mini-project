@@ -77,4 +77,13 @@ public class SoftwareEngineerService {
         );
     }
 
+    public List<SoftwareEngineerDTO> getEngineersByTechStack(String techStack) {
+        return softwareEngineerRepository.findByTechStackContainingIgnoreCase(techStack).stream().map(engineer -> new SoftwareEngineerDTO(
+                engineer.getId(),
+                engineer.getName(),
+                engineer.getTechStack()
+                )
+        ).toList();
+    }
+
 }
