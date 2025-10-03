@@ -90,7 +90,8 @@ public class SoftwareEngineerService {
 
     //method to find by techStack
     public List<SoftwareEngineerDTO> getEngineersByTechStack(String techStack) {
-        return softwareEngineerRepository.findByTechStackContainingIgnoreCase(techStack).stream().map(engineer -> new SoftwareEngineerDTO(
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("techStack").descending());
+        return softwareEngineerRepository.findByTechStackContainingIgnoreCase(techStack,pageable).map(engineer -> new SoftwareEngineerDTO(
                 engineer.getId(),
                 engineer.getName(),
                 engineer.getTechStack()
@@ -100,7 +101,8 @@ public class SoftwareEngineerService {
 
     //method to find by name
     public List<SoftwareEngineerDTO> findByNameContainingIgnoreCase(String name) {
-        return softwareEngineerRepository.findByNameContainingIgnoreCase(name).stream().map(engineer -> new SoftwareEngineerDTO(
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("name").descending());
+        return softwareEngineerRepository.findByNameContainingIgnoreCase(name,pageable).map(engineer -> new SoftwareEngineerDTO(
                         engineer.getId(),
                         engineer.getName(),
                         engineer.getTechStack()
@@ -121,6 +123,30 @@ public class SoftwareEngineerService {
                 ));
     }
 
+    //pagination, sorting and optional filtering
+    public Page<SoftwareEngineerDTO> searchEngineers(String name, String techStack, int page, int size, String sortBy, String direction) {
 
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortBy));
+
+        Page<SoftwareEngineer> engineers;
+
+        if (name != null && !name.isEmpty() && techStack != null && !techStack.isEmpty()) {
+            engineers = softwareEngineerRepository
+                    .findByNameContainingIgnoreCaseAndTechStackContainingIgnoreCase(name, techStack, pageable);
+        } else if (name != null && !name.isEmpty()) {
+            engineers = softwareEngineerRepository.findByNameContainingIgnoreCase(name, pageable);
+        } else if (techStack != null && !techStack.isEmpty()) {
+            engineers = softwareEngineerRepository.findByTechStackContainingIgnoreCase(techStack, pageable);
+        } else {
+            engineers = softwareEngineerRepository.findAll(pageable);
+        }
+
+        return engineers.map(engineer -> new SoftwareEngineerDTO(
+                engineer.getId(),
+                engineer.getName(),
+                engineer.getTechStack()
+        ));
+    }
 
 }

@@ -48,7 +48,7 @@ public class SoftwareEngineerController {
         softwareEngineerService.deleteSoftwareEngineerById(id);
         return ResponseEntity.noContent().build(); // HTTP 204
     }
-
+/*
     //get by techstack
     @GetMapping("/search/by-techStack")
     public List<SoftwareEngineerDTO> getEngineersByTechStack(@RequestParam(value = "techStack") String techStack) {
@@ -59,6 +59,19 @@ public class SoftwareEngineerController {
     @GetMapping("/search/by-name")
     public List<SoftwareEngineerDTO> findByNameContainingIgnoreCase(@RequestParam(value = "name") String name) {
         return  softwareEngineerService.findByNameContainingIgnoreCase(name);
+    }
+*/
+    //flexible search endpoint
+    @GetMapping("/search")
+    public Page<SoftwareEngineerDTO> searchEngineers(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String techStack,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ) {
+        return softwareEngineerService.searchEngineers(name, techStack, page, size, sortBy, direction);
     }
 
     //get paginated and sorted data
