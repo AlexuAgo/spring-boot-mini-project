@@ -10,7 +10,7 @@ Content-Type: application/json
 
 {
   "name": "Alex",
-  "techStack": ""
+  "techStack": "java"
 }
 
 ### GET a specific engineer by id
