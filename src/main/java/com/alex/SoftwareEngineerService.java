@@ -36,12 +36,18 @@ public class SoftwareEngineerService {
         softwareEngineerRepository.save(engineer);
     }
 
-    /*Delete one software engineer */
-    public SoftwareEngineer getSoftwareEngineerById(Integer id) {
+    /*Get one software engineer by id*/
+    public SoftwareEngineerDTO getSoftwareEngineerById(Integer id) {
+        SoftwareEngineer engineer = softwareEngineerRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Engineer " + id + " not found"));
 
-        return softwareEngineerRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException( id + " not found"));
+        return new SoftwareEngineerDTO(
+                engineer.getId(),
+                engineer.getName(),
+                engineer.getTechStack()
+        );
     }
+
 
     /*Update a software engineer */
     public SoftwareEngineerDTO updateEngineer(Integer id, @Valid SoftwareEngineerDTO dto) {
@@ -82,6 +88,15 @@ public class SoftwareEngineerService {
                 engineer.getId(),
                 engineer.getName(),
                 engineer.getTechStack()
+                )
+        ).toList();
+    }
+
+    public List<SoftwareEngineerDTO> findByNameContainingIgnoreCase(String name) {
+        return softwareEngineerRepository.findByNameContainingIgnoreCase(name).stream().map(engineer -> new SoftwareEngineerDTO(
+                        engineer.getId(),
+                        engineer.getName(),
+                        engineer.getTechStack()
                 )
         ).toList();
     }

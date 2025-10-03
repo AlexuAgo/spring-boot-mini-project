@@ -29,13 +29,12 @@ public class SoftwareEngineerController {
         softwareEngineerService.insertSoftwareEngineer(softwareEngineer);
     }
 
-    /* get all
-    @GetMapping("{id}")
-    public SoftwareEngineer getEngineerById(@PathVariable Integer id) {
 
+    @GetMapping("{id}")
+    public SoftwareEngineerDTO getEngineerById(@PathVariable Integer id) {
         return softwareEngineerService.getSoftwareEngineerById(id);
     }
-*/
+
     //update
     @PutMapping("{id}")
     public SoftwareEngineerDTO putEngineerById(@PathVariable Integer id,@Valid @RequestBody SoftwareEngineerDTO dto) {
@@ -50,9 +49,15 @@ public class SoftwareEngineerController {
     }
 
     //get by techstack
-    @GetMapping("/search")
+    @GetMapping("/search/by-techStack")
     public List<SoftwareEngineerDTO> getEngineersByTechStack(@RequestParam(value = "techStack") String techStack) {
         return  softwareEngineerService.getEngineersByTechStack(techStack);
+    }
+
+    //get by name
+    @GetMapping("/search/by-name")
+    public List<SoftwareEngineerDTO> findByNameContainingIgnoreCase(@RequestParam(value = "name") String name) {
+        return  softwareEngineerService.findByNameContainingIgnoreCase(name);
     }
 
 }

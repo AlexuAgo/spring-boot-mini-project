@@ -9,4 +9,6 @@ public interface SoftwareEngineerRepository
 
 List<SoftwareEngineer> findByTechStackContainingIgnoreCase(String techStack);
 
+List<SoftwareEngineer> findByNameContainingIgnoreCase(String name);
+
 }

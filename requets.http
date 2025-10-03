@@ -9,27 +9,30 @@ POST http://localhost:8080/api/v1/software_engineers
 Content-Type: application/json
 
 {
-  "name": "John",
-  "techStack": "sql, mongo "
+  "name": "Alex",
+  "techStack": "java, spring"
 }
 
 ### GET a specific engineer by id
-GET http://localhost:8080/api/v1/software_engineers/2
+GET http://localhost:8080/api/v1/software_engineers/1
 
 ### Update an engineer by id
-PUT http://localhost:8080/api/v1/software_engineers/4
+PUT http://localhost:8080/api/v1/software_engineers/2
 Content-Type: application/json
 
 {
-  "name": "Johny",
-  "techStack": "backend, spring"
+  "name": "Alex",
+  "techStack": "java"
 }
 
 ### Delete an engineer by id
-DELETE http://localhost:8080/api/v1/software_engineers/2
+DELETE http://localhost:8080/api/v1/software_engineers/3
 
 ### Search an engineer by techStack
-GET http://localhost:8080/api/v1/software_engineers/search?techStack=java
+GET http://localhost:8080/api/v1/software_engineers/search/by-techStack?techStack=java
+
+### Search an engineer by name
+GET http://localhost:8080/api/v1/software_engineers/search/by-name?name=alex
 
 
 
