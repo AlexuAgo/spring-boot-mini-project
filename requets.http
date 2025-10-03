@@ -9,8 +9,8 @@ POST http://localhost:8080/api/v1/software_engineers
 Content-Type: application/json
 
 {
-  "name": "Alex",
-  "techStack": "java, spring"
+  "name": "Matt",
+  "techStack": "sql"
 }
 
 ### GET a specific engineer by id
@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 ### Delete an engineer by id
-DELETE http://localhost:8080/api/v1/software_engineers/3
+DELETE http://localhost:8080/api/v1/software_engineers/1
 
 ### Search an engineer by techStack
 GET http://localhost:8080/api/v1/software_engineers/search/by-techStack?techStack=java
@@ -34,5 +34,10 @@ GET http://localhost:8080/api/v1/software_engineers/search/by-techStack?techStac
 ### Search an engineer by name
 GET http://localhost:8080/api/v1/software_engineers/search/by-name?name=alex
 
+### Get paginated and sorted data in ascending order by default
+GET http://localhost:8080/api/v1/software_engineers/paginated?page=0&size=3&sortBy=name
+
+### Get paginated and sorted data in descending order
+GET http://localhost:8080/api/v1/software_engineers/paginated?page=0&size=3&sortBy=name&direction=desc
 
 

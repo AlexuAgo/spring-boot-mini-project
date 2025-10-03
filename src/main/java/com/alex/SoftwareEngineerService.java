@@ -2,6 +2,10 @@ package com.alex;
 
 
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
@@ -75,6 +79,7 @@ public class SoftwareEngineerService {
 
     }
 
+    //maps an engineer to the dto
     public SoftwareEngineerDTO mapToDTO(SoftwareEngineer engineer) {
         return new SoftwareEngineerDTO(
                 engineer.getId(),
@@ -83,6 +88,7 @@ public class SoftwareEngineerService {
         );
     }
 
+    //method to find by techStack
     public List<SoftwareEngineerDTO> getEngineersByTechStack(String techStack) {
         return softwareEngineerRepository.findByTechStackContainingIgnoreCase(techStack).stream().map(engineer -> new SoftwareEngineerDTO(
                 engineer.getId(),
@@ -92,6 +98,7 @@ public class SoftwareEngineerService {
         ).toList();
     }
 
+    //method to find by name
     public List<SoftwareEngineerDTO> findByNameContainingIgnoreCase(String name) {
         return softwareEngineerRepository.findByNameContainingIgnoreCase(name).stream().map(engineer -> new SoftwareEngineerDTO(
                         engineer.getId(),
@@ -100,5 +107,20 @@ public class SoftwareEngineerService {
                 )
         ).toList();
     }
+
+    //method to paginate and sort
+    public Page<SoftwareEngineerDTO> getPaginatedEngineers(int page, int size, String sortBy, String direction) {
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortBy));
+
+        return softwareEngineerRepository.findAll(pageable)
+                .map(engineer -> new SoftwareEngineerDTO(
+                        engineer.getId(),
+                        engineer.getName(),
+                        engineer.getTechStack()
+                ));
+    }
+
+
 
 }

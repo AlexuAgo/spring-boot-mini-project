@@ -1,6 +1,7 @@
 package com.alex;
 
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,4 +61,14 @@ public class SoftwareEngineerController {
         return  softwareEngineerService.findByNameContainingIgnoreCase(name);
     }
 
+    //get paginated and sorted data
+    @GetMapping("/paginated")
+    public Page<SoftwareEngineerDTO> getPaginatedEngineers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ) {
+        return softwareEngineerService.getPaginatedEngineers(page, size, sortBy, direction);
+    }
 }
