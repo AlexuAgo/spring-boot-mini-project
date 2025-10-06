@@ -75,19 +75,7 @@ public class SoftwareEngineerController {
         softwareEngineerService.deleteSoftwareEngineerById(id);
         return ResponseEntity.noContent().build(); // HTTP 204
     }
-/*
-    //get by techstack
-    @GetMapping("/search/by-techStack")
-    public List<SoftwareEngineerDTO> getEngineersByTechStack(@RequestParam(value = "techStack") String techStack) {
-        return  softwareEngineerService.getEngineersByTechStack(techStack);
-    }
 
-    //get by name
-    @GetMapping("/search/by-name")
-    public List<SoftwareEngineerDTO> findByNameContainingIgnoreCase(@RequestParam(value = "name") String name) {
-        return  softwareEngineerService.findByNameContainingIgnoreCase(name);
-    }
-*/
     //flexible search endpoint
     @GetMapping("/search")
     @io.swagger.v3.oas.annotations.Operation(
