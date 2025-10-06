@@ -88,12 +88,13 @@ public class SoftwareEngineerControllerTest {
                         .content(objectMapper.writeValueAsString(engineer)))
                 .andExpect(status().isOk());
 
-        // Delete engineer
+        // Delete engineer (should return 204)
         mockMvc.perform(delete("/api/v1/software_engineers/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         // Check it no longer exists
         mockMvc.perform(get("/api/v1/software_engineers/1"))
                 .andExpect(status().isNotFound());
     }
+
 }

@@ -23,6 +23,10 @@ public class SoftwareEngineerController {
 
     //get all through dto
     @GetMapping
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "Get all engineers",
+            description = "Get all engineers"
+    )
     public List<SoftwareEngineerDTO> getAllSoftwareEngineersDTO() {
         logger.info("GET http://localhost:8080/api/v1/software_engineers called");
         return softwareEngineerService.getAllSoftwareEngineersDTO();
@@ -30,6 +34,10 @@ public class SoftwareEngineerController {
 
 
     @PostMapping
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "Add an engineer",
+            description = "Add an engineer"
+    )
     public void addNewSoftwareEngineer(@Valid @RequestBody SoftwareEngineerDTO softwareEngineer) {
         logger.info("POST http://localhost:8080/api/v1/software_engineers called with payload {}", softwareEngineer);
         softwareEngineerService.insertSoftwareEngineer(softwareEngineer);
@@ -37,6 +45,10 @@ public class SoftwareEngineerController {
 
 
     @GetMapping("{id}")
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "Get engineer by their ID",
+            description = "Get engineer by their ID"
+    )
     public SoftwareEngineerDTO getEngineerById(@PathVariable Integer id) {
         logger.info("GET http://localhost:8080/api/v1/software_engineers/{} called",id);
         return softwareEngineerService.getSoftwareEngineerById(id);
@@ -44,12 +56,20 @@ public class SoftwareEngineerController {
 
     //update
     @PutMapping("{id}")
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "Update an engineer",
+            description = "Update an engineer"
+    )
     public SoftwareEngineerDTO putEngineerById(@PathVariable Integer id,@Valid @RequestBody SoftwareEngineerDTO dto) {
         logger.info("PUT http://localhost:8080/api/v1/software_engineers/{} with payload {}", id, dto);
         return softwareEngineerService.updateEngineer(id, dto);
     }
     //delete
     @DeleteMapping("{id}")
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "Delete an engineer through their id",
+            description = "Delete an engineer through their id"
+    )
     public ResponseEntity<Void> deleteSoftwareEngineerById(@PathVariable Integer id) {
         logger.info("DELETE http://localhost:8080/api/v1/software_engineers/{} called",id);
         softwareEngineerService.deleteSoftwareEngineerById(id);
@@ -70,6 +90,10 @@ public class SoftwareEngineerController {
 */
     //flexible search endpoint
     @GetMapping("/search")
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "Search software engineers",
+            description = "Search engineers by either name and/or techStack, with pagination and sorting"
+    )
     public Page<SoftwareEngineerDTO> searchEngineers(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String techStack,
@@ -85,6 +109,10 @@ public class SoftwareEngineerController {
 
     //get paginated and sorted data
     @GetMapping("/paginated")
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "Get paginated engineers",
+            description = "Retrieve all engineers with pagination and sorting options"
+    )
     public Page<SoftwareEngineerDTO> getPaginatedEngineers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
